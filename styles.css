@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#body-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#calc-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 1px solid red;
+}
+
+#display {
+  border: 1px solid black;
+  width: 80%;
+}

@@ -11,4 +11,4 @@ let numB;
 
 let operate = (numA, numB, operator) => add(numA, numB);
 
-console.log(operate(5, 8));
+// console.log(operate(5, 8));
