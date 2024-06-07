@@ -1,6 +1,5 @@
 const calcContainer = document.querySelector("#calc-container");
 const display = document.querySelector("#display");
-display.textContent = "0";
 const buttons = document.querySelector("#buttons");
 
 const clearBtn = document.querySelector("#clear-btn");
@@ -30,22 +29,25 @@ let numClick = () => {
     num.addEventListener("click", () => {
       displayValue.push(num.value);
       let joinValue = displayValue.join("");
-      display.textContent = joinValue;
+      display.textContent = parseInt(joinValue);
     });
   });
 
-  //   zeroBtn.addEventListener("click", () => {
-  //     displayValue = zeroBtn.value;
-  //     display.textContent = displayValue;
-  //   });
+  zeroBtn.addEventListener("click", () => {
+    if (displayValue.length > 0) {
+      displayValue.push(zeroBtn.value);
+      let joinValue = displayValue.join("");
+      display.textContent = joinValue;
+    }
+  });
 };
 
 let clearClick = () => {
   clearBtn.addEventListener("click", () => {
-    displayValue = null;
-    display.textContent = "";
+    displayValue = [];
+    display.textContent = "0";
   });
 };
 
 numClick();
-// clearClick();
+clearClick();
