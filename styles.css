@@ -18,10 +18,9 @@ body {
 
 #display {
   height: 90px;
-  font-size: 55px;
+  font-size: 85px;
   display: flex;
   justify-content: flex-end;
-  align-items: flex-end;
   padding: 0 5px 5px 0;
 }
 
@@ -32,6 +31,12 @@ body {
 }
 
 button {
+  padding: 20px;
+  font-size: 25px;
+  border: 1px solid #7d7d7d;
+}
+
+input {
   padding: 20px;
   font-size: 25px;
   border: 1px solid #7d7d7d;
