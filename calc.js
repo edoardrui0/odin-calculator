@@ -23,8 +23,17 @@ let numB;
 // handles the start of the math operations
 let operate = (numA, numB, operator) => operator(numA, numB);
 
+/* 
+  let test1 = ["2", ".", "5"];
+  let test2 = ["2", ".", "5"];
+  let parse1 = parseFloat(test1.join(""));
+  let parse2 = parseFloat(test2.join(""));
+  console.log(operate(parse1, parse2, multiply));
+*/
+
 // displayed first before operands
 let displayValue1 = [];
+let isEnterFirstValue = true;
 
 // displayed after operands are selected
 let displayValue2 = [];
@@ -33,22 +42,50 @@ let displayValue2 = [];
 let numClick = () => {
   numberBtn.forEach((num) => {
     num.addEventListener("click", () => {
-      if (num.value === "." && displayValue1.includes(".")) {
-        return;
+      if (isEnterFirstValue) {
+        if (num.value === "." && displayValue1.includes(".")) {
+          return;
+        }
+        displayValue1.push(num.value);
+        let joinValue = displayValue1.join("");
+        display.textContent = joinValue;
+        console.log(displayValue1);
+      } else {
+        if (num.value === "." && displayValue2.includes(".")) {
+          return;
+        }
+        displayValue2.push(num.value);
+        let joinValue = displayValue2.join("");
+        display.textContent = joinValue;
+        console.log(displayValue2);
       }
-      displayValue1.push(num.value);
-      let joinValue = displayValue1.join("");
-      display.textContent = joinValue;
     });
   });
 
   zeroBtn.addEventListener("click", () => {
-    if (displayValue1.length > 0) {
-      displayValue1.push(zeroBtn.value);
-      let joinValue = displayValue1.join("");
-      display.textContent = joinValue;
+    if (isEnterFirstValue) {
+      if (displayValue1.length > 0) {
+        displayValue1.push(zeroBtn.value);
+        let joinValue = displayValue1.join("");
+        display.textContent = joinValue;
+      }
+    } else {
+      if (displayValue2.length > 0) {
+        displayValue2.push(zeroBtn.value);
+        let joinValue = displayValue2.join("");
+        display.textContent = joinValue;
+      }
     }
-    console.log(displayValue1);
+  });
+};
+
+// func for operands
+let operandClick = () => {
+  operandBtn.forEach((oper) => {
+    oper.addEventListener("click", () => {
+      display.textContent = "0";
+      isEnterFirstValue = false;
+    });
   });
 };
 
@@ -60,5 +97,8 @@ let clearClick = () => {
   });
 };
 
+operandClick();
 numClick();
 clearClick();
+
+// floatValue1 = parseFloat(displayValue1.join(""));
