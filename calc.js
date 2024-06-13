@@ -20,31 +20,42 @@ let numA;
 let operator;
 let numB;
 
-let operate = (numA, numB, operator) => add(numA, numB);
+// handles the start of the math operations
+let operate = (numA, numB, operator) => operator(numA, numB);
 
-let displayValue = [];
+// displayed first before operands
+let displayValue1 = [];
 
+// displayed after operands are selected
+let displayValue2 = [];
+
+// eventListeners to update display
 let numClick = () => {
   numberBtn.forEach((num) => {
     num.addEventListener("click", () => {
-      displayValue.push(num.value);
-      let joinValue = displayValue.join("");
-      display.textContent = parseInt(joinValue);
+      if (num.value === "." && displayValue1.includes(".")) {
+        return;
+      }
+      displayValue1.push(num.value);
+      let joinValue = displayValue1.join("");
+      display.textContent = joinValue;
     });
   });
 
   zeroBtn.addEventListener("click", () => {
-    if (displayValue.length > 0) {
-      displayValue.push(zeroBtn.value);
-      let joinValue = displayValue.join("");
+    if (displayValue1.length > 0) {
+      displayValue1.push(zeroBtn.value);
+      let joinValue = displayValue1.join("");
       display.textContent = joinValue;
     }
+    console.log(displayValue1);
   });
 };
 
+// clears display
 let clearClick = () => {
   clearBtn.addEventListener("click", () => {
-    displayValue = [];
+    displayValue1 = [];
     display.textContent = "0";
   });
 };
