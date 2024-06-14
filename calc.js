@@ -9,11 +9,21 @@ const zeroBtn = document.querySelector("#zero-btn");
 const decimalBtn = document.querySelector("#decimal-btn");
 const equalBtn = document.querySelector("#equal-btn");
 
+// operandBtn.forEach((btn) => console.log(btn.value));
+
 // basic logical functions
 let add = (a, b) => a + b;
 let subtract = (a, b) => a - b;
 let multiply = (a, b) => a * b;
 let divide = (a, b) => a / b;
+
+// object that holds all logical functions
+let operators = {
+  add: add,
+  subtract: subtract,
+  multiply: multiply,
+  divide: divide,
+};
 
 // calc operation variables
 let numA;
@@ -23,20 +33,21 @@ let numB;
 // handles the start of the math operations
 let operate = (numA, numB, operator) => operator(numA, numB);
 
-/* 
-  let test1 = ["2", ".", "5"];
-  let test2 = ["2", ".", "5"];
-  let parse1 = parseFloat(test1.join(""));
-  let parse2 = parseFloat(test2.join(""));
-  console.log(operate(parse1, parse2, multiply));
-*/
-
 // displayed first before operands
 let displayValue1 = [];
 let isEnterFirstValue = true;
 
 // displayed after operands are selected
 let displayValue2 = [];
+let isEnterSecondValue = false;
+
+// holds value of the operands
+let displayOperand = [];
+let isEnterOperand = false;
+
+// holds value of sum
+let displaySum = [];
+let isEnterSum = false;
 
 // eventListeners to update display
 let numClick = () => {
@@ -83,20 +94,52 @@ let numClick = () => {
 let operandClick = () => {
   operandBtn.forEach((oper) => {
     oper.addEventListener("click", () => {
-      display.textContent = "0";
-      isEnterFirstValue = false;
+      displayOperand = oper.value;
+      if (displayValue1.length > 0) {
+        display.textContent = "0";
+        isEnterFirstValue = false;
+        isEnterSecondValue = true;
+        isEnterOperand = true;
+      }
     });
   });
 };
 
-// clears display
-let clearClick = () => {
-  clearBtn.addEventListener("click", () => {
-    displayValue1 = [];
-    display.textContent = "0";
+// calculates sum if conditions met
+let equalClick = () => {
+  equalBtn.addEventListener("click", () => {
+    isEnterSum = true;
+    if (
+      !isEnterFirstValue &&
+      displayValue2.length > 0 &&
+      isEnterOperand &&
+      isEnterSum
+    ) {
+      let numA = parseFloat(displayValue1.join(""));
+      let numB = parseFloat(displayValue2.join(""));
+      let operObj = operators[displayOperand];
+
+      let operFunc = operate(numA, numB, operObj);
+
+      displaySum.push(operFunc);
+      display.textContent = displaySum;
+    }
+    displaySum = [];
   });
 };
 
+// clears display
+function clearClick() {
+  clearBtn.addEventListener("click", () => {
+    displayValue1 = [];
+    displayValue2 = [];
+    displaySum = [];
+    isEnterFirstValue = true;
+    display.textContent = "0";
+  });
+}
+
+equalClick();
 operandClick();
 numClick();
 clearClick();
