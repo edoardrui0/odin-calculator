@@ -9,8 +9,6 @@ const zeroBtn = document.querySelector("#zero-btn");
 const decimalBtn = document.querySelector("#decimal-btn");
 const equalBtn = document.querySelector("#equal-btn");
 
-// operandBtn.forEach((btn) => console.log(btn.value));
-
 // basic logical functions
 let add = (a, b) => a + b;
 let subtract = (a, b) => a - b;
@@ -57,18 +55,20 @@ let numClick = () => {
         if (num.value === "." && displayValue1.includes(".")) {
           return;
         }
-        displayValue1.push(num.value);
-        let joinValue = displayValue1.join("");
-        display.textContent = joinValue;
-        console.log(displayValue1);
+        if (displayValue1.length < 9) {
+          displayValue1.push(num.value);
+          let joinValue = displayValue1.join("");
+          display.textContent = joinValue;
+        }
       } else {
         if (num.value === "." && displayValue2.includes(".")) {
           return;
         }
-        displayValue2.push(num.value);
-        let joinValue = displayValue2.join("");
-        display.textContent = joinValue;
-        console.log(displayValue2);
+        if (displayValue2.length < 9) {
+          displayValue2.push(num.value);
+          let joinValue = displayValue2.join("");
+          display.textContent = joinValue;
+        }
       }
     });
   });
@@ -125,6 +125,8 @@ let equalClick = () => {
       display.textContent = displaySum;
     }
     displaySum = [];
+    displayValue1 = [];
+    displayValue2 = [];
   });
 };
 
@@ -143,5 +145,3 @@ equalClick();
 operandClick();
 numClick();
 clearClick();
-
-// floatValue1 = parseFloat(displayValue1.join(""));
