@@ -121,14 +121,31 @@ let equalClick = () => {
 
       let operFunc = operate(numA, numB, operObj);
 
-      displaySum.push(operFunc);
-      let sumStr = displaySum.toString().split("");
+      let sumArr = operFunc.toString().split("");
 
-      if (sumStr.length < 9) {
-        display.textContent = displaySum;
+      if (sumArr.length > 9) {
+        let parseSum = parseFloat(sumArr.join(""));
+        if (sumArr.includes(".")) {
+          displaySum.push(parseSum.toFixed(2));
+          display.textContent = displaySum;
+        } else {
+          displaySum.push(parseSum.toExponential(3));
+          display.textContent = displaySum;
+        }
+      }
+
+      if (sumArr.length <= 9) {
+        let parseSum = parseFloat(sumArr.join(""));
+        if (sumArr.includes(".")) {
+          displaySum.push(parseSum.toFixed(2));
+          display.textContent = displaySum;
+        } else {
+          displaySum.push(parseSum);
+          display.textContent = displaySum;
+        }
       }
     }
-    // displaySum = [];
+    displaySum = [];
     displayValue1 = [];
     displayValue2 = [];
   });
