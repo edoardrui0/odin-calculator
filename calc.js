@@ -122,9 +122,13 @@ let equalClick = () => {
       let operFunc = operate(numA, numB, operObj);
 
       displaySum.push(operFunc);
-      display.textContent = displaySum;
+      let sumStr = displaySum.toString().split("");
+
+      if (sumStr.length < 9) {
+        display.textContent = displaySum;
+      }
     }
-    displaySum = [];
+    // displaySum = [];
     displayValue1 = [];
     displayValue2 = [];
   });
